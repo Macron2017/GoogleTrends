@@ -1,5 +1,5 @@
 ############################################
-#    Query GoogleTrends from R
+#        Query GoogleTrends from R
 #
 ############################################
 
@@ -14,7 +14,7 @@ requiredPackages <- c("stringi","colorspace","Rcpp","mime","curl","stringr",
 
 
 
-install.packages (requiredPackages)
+install.packages(requiredPackages)
 #********************** Install from R
 # install.packages("gtrendsR")
 #
@@ -31,11 +31,21 @@ library(gtrendsR)
 # Create a connection using your Google Account details
 user <- "<Google account email>"
 psw  <- "<Google account password>"
-gConnect <- gconnect(user, psw)
+session <- gconnect(user, psw)
 
 
 # use the connection to get Google trends data
-data <- gtrends(gConnect, "Macron")
+data <- gtrends(session, "Macron")
+data <- gtrends("Macron", geo = c("CA", "US"))
+
+# Trends between 2017-01-01 and 2017-02-21 in France.
+gtrends("Macron", geo = c("FR"), start_date = "2015-01-01", end_date = "2015-03-01")
+
+# Last 4 hours trends
+gtrends("Macron", geo = c("FR"), res = "7h")
+
+# Last 7 days trends
+gtrends("Macron", geo = c("FR"), res = "7d")
 
 #Explore the data
 head(data$searches[[1]])
